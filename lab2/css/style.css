@@ -369,44 +369,6 @@ tr:hover td {
     inset 0 0 0 15px #e0a64a;
 }
 
-#season::before {
-  content: "";
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  bottom: 20px;
-  left: 20px;
-  pointer-events: none;
-  background:
-    linear-gradient(#b5442b, #b5442b) left top / 40px 4px no-repeat,
-    linear-gradient(#b5442b, #b5442b) left top / 4px 40px no-repeat,
-    linear-gradient(#b5442b, #b5442b) right top / 40px 4px no-repeat,
-    linear-gradient(#b5442b, #b5442b) right top / 4px 40px no-repeat,
-    linear-gradient(#b5442b, #b5442b) left bottom / 40px 4px no-repeat,
-    linear-gradient(#b5442b, #b5442b) left bottom / 4px 40px no-repeat,
-    linear-gradient(#b5442b, #b5442b) right bottom / 40px 4px no-repeat,
-    linear-gradient(#b5442b, #b5442b) right bottom / 4px 40px no-repeat;
-}
-
-#season::after {
-  content: "";
-  position: absolute;
-  top: 28px;
-  right: 28px;
-  bottom: 28px;
-  left: 28px;
-  pointer-events: none;
-  background:
-    linear-gradient(#e0a64a, #e0a64a) left top / 24px 2px no-repeat,
-    linear-gradient(#e0a64a, #e0a64a) left top / 2px 24px no-repeat,
-    linear-gradient(#e0a64a, #e0a64a) right top / 24px 2px no-repeat,
-    linear-gradient(#e0a64a, #e0a64a) right top / 2px 24px no-repeat,
-    linear-gradient(#e0a64a, #e0a64a) left bottom / 24px 2px no-repeat,
-    linear-gradient(#e0a64a, #e0a64a) left bottom / 2px 24px no-repeat,
-    linear-gradient(#e0a64a, #e0a64a) right bottom / 24px 2px no-repeat,
-    linear-gradient(#e0a64a, #e0a64a) right bottom / 2px 24px no-repeat;
-}
-
 #season table {
   background-color: transparent;
 }
