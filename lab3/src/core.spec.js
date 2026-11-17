@@ -10,6 +10,11 @@ describe('Задания core js', () => {
         it('Возвращает false на нецелое число', () => {
             assert.equal(core.isInteger(1.2), false);
         });
+
+
+        it('Возвращает false на строку', () => {
+            assert.equal(core.isInteger('abc'), false);
+        });        
     });
 
     describe('#even', () => {

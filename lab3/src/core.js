@@ -3,8 +3,7 @@
  * @param {*} n
  */
 function isInteger(n) {
-    const remainder = n % 2147483648;
-    return typeof n === 'number' && remainder === (remainder | 0);
+    return (n | 0) === n;
 }
 
 /**
