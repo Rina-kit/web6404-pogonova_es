@@ -3,7 +3,6 @@
  * @param {*} n
  */
 function isInteger(n) {
-    // Остаток помещается в 32 бита даже для больших чисел.
     const remainder = n % 2147483648;
     return typeof n === 'number' && remainder === (remainder | 0);
 }
