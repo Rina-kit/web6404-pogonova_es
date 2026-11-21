@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Запись на дегустацию — Coffee Compass</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/booking.js" defer></script>
+</head>
+<body class="page">
+  <header class="header">
+    <a class="logo" href="index.html"><img class="logo__image" src="img/logo.png" alt="Логотип Coffee Compass"><span>Coffee Compass</span></a>
+    <nav class="nav" aria-label="Основная навигация">
+      <a class="nav__link" href="index.html">Главная</a>
+      <a class="nav__link" href="menu.html">Меню</a>
+      <a class="nav__link" href="history.html">История кофе</a>
+      <a class="nav__link" href="brewing.html">Способы заваривания</a>
+      <a class="nav__link nav__link_active" aria-current="page" href="visit.html">Запись на дегустацию</a>
+    </nav>
+  </header>
+  <section class="page-title"><h1>Встречаемся за кофе</h1><p>Оставьте заявку на дегустацию. Познакомимся с зёрнами и найдём ваш любимый вкус.</p></section>
+  <main class="visit">
+    <div class="visit__intro">
+      <img class="visit__image" src="img/cafe-inside.jpg" alt="Зал кофейни Coffee Compass">
+      <h3>Маленькое кофейное путешествие</h3>
+      <p>Попробуем Бразилию и Эфиопию, сравним ароматы и поговорим о способах заваривания.</p>
+      <p>Самара, Молодогвардейская ул., 151.</p>
+      <p id="booking-help">Все поля, кроме комментария, обязательны. После получения заявки мы свяжемся с вами по электронной почте для согласования встречи.</p>
+    </div>
+    <form class="booking-form" action="/api/bookings" method="post" aria-describedby="booking-help">
+      <label class="booking-form__field">Ваше имя<input class="booking-form__input" type="text" name="name" autocomplete="given-name" required maxlength="80" pattern=".*\S.*" placeholder="Как к вам обращаться?"></label>
+      <label class="booking-form__field">Электронная почта<input class="booking-form__input" type="email" name="email" autocomplete="email" required maxlength="120" placeholder="you@example.com"></label>
+      <label class="booking-form__field">Количество гостей<input class="booking-form__input" type="number" name="guests" min="1" max="6" value="1" required></label>
+      <label class="booking-form__field">Что хотите попробовать?<select class="booking-form__input" name="coffee" required><option value="">Выберите зёрна</option><option value="Бразилия">Бразилия</option><option value="Эфиопия">Эфиопия</option><option value="Оба сорта">Оба сорта</option></select></label>
+      <label class="booking-form__field">Комментарий<textarea class="booking-form__input" name="comment" rows="3" maxlength="1000" placeholder="Расскажите о ваших пожеланиях"></textarea></label>
+      <label class="booking-form__consent"><input class="booking-form__checkbox" type="checkbox" name="consent" value="yes" required><span>Согласен на обработку введённых данных для связи по заявке.</span></label>
+      <button class="button booking-form__submit" type="submit">Отправить заявку</button>
+      <p class="booking-form__status" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+  <footer class="footer">Coffee Compass · Самара · <a href="menu.html">Выбрать напиток</a></footer>
+</body>
+</html>

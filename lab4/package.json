@@ -1,0 +1,8 @@
+{
+  "name": "coffee-compass-lab4",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Лабораторная работа 4: Modern CSS и ООП JavaScript",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
