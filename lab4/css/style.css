@@ -1,5 +1,9 @@
 /* Цвета сайта: чтобы поменять цвет, исправьте его здесь */
 :root {
+  --card-shadow: rgba(0, 0, 0, 0.4);
+  --snow-color: #eef9ff;
+  --snow-glow: rgba(181, 225, 255, 0.5);
+  --snow-glint: rgba(255, 255, 255, 0.85);
   --bg: #1f130b;
   --panel: #2d1c10;
   --text: #f3e9dc;
@@ -12,15 +16,15 @@
   --hero-overlay-end: rgba(31, 19, 11, 0.85);
   --table-border: #4a3220;
   --table-hover: #3a2515;
-  --season-ink: #7a3326;
-  --season-bg-start: #f8e9d2;
-  --season-bg-end: #f0d6ae;
-  --season-accent: #9c2b1f;
-  --season-frame: #f5dfbc;
-  --season-gold: #e0a64a;
+  --season-ink: #102f43;
+  --season-bg-start: #d2e8f3;
+  --season-bg-end: #a4c8da;
+  --season-accent: #103f38;
+  --season-frame: #b8d7e6;
+  --season-blue: #518ead;
   --transparent: transparent;
-  --season-hover: rgba(200, 120, 47, 0.15);
-  --season-muted: #a0604a;
+  --season-hover: rgba(26, 82, 112, 0.16);
+  --season-muted: #294e63;
   --map-robusta: #9acd32;
   --map-arabica: #a8321f;
   --map-both: #d98d4c;
@@ -373,7 +377,7 @@ tr:hover td {
   margin: 0 auto;
 }
 
-/* Сезонное меню: осенний фон, рамки и уголки */
+/* Сезонное меню: зимняя палитра, рамки и уголки */
 .season-menu {
   position: relative;
   padding: 52px 56px;
@@ -382,9 +386,9 @@ tr:hover td {
   border: 3px solid var(--season-accent);
   box-shadow:
     inset 0 0 0 8px var(--season-frame),
-    inset 0 0 0 10px var(--orange),
+    inset 0 0 0 10px var(--season-blue),
     inset 0 0 0 14px var(--season-frame),
-    inset 0 0 0 15px var(--season-gold);
+    inset 0 0 0 15px var(--season-blue);
 }
 
 .season-menu table {
@@ -392,11 +396,12 @@ tr:hover td {
 }
 
 .season-menu th {
+  border-bottom-color: var(--season-blue);
   color: var(--season-accent);
 }
 
 .season-menu td {
-  border-bottom: 1px dotted var(--orange);
+  border-bottom: 1px dotted var(--season-blue);
 }
 
 .season-menu tr:hover td {
@@ -409,11 +414,6 @@ tr:hover td {
 
 .season-menu .data-table__description {
   color: var(--season-muted);
-}
-
-.season-menu__text {
-  text-align: center;
-  color: var(--muted);
 }
 
 .timeline {
@@ -589,17 +589,8 @@ tr:hover td {
 .footer { padding: 24px 20px; text-align: center; border-top: 1px solid var(--orange); color: var(--muted); }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
 .hero { position: relative; }
-.steam { display: flex; gap: 16px; height: 65px; align-items: end; margin-bottom: 16px; }
-.steam__trail { width: 10px; height: 52px; border-radius: 50%; background: linear-gradient(var(--text), var(--bg)); animation: steam-rise 3s ease-in-out infinite; }
-.steam__trail_delayed { animation-delay: -1s; height: 64px; }
-.steam__trail_late { animation-delay: -2s; }
-@keyframes steam-rise {
-  0% { transform: translateY(10px) scaleX(0.6) rotate(-8deg); opacity: 0; }
-  35% { opacity: 0.65; }
-  100% { transform: translateY(-28px) scaleX(1.5) rotate(12deg); opacity: 0; }
-}
 .visit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 48px; padding-top: 48px; }
-.visit__image { width: 100%; border-radius: 8px; margin-bottom: 24px; }
+.visit__image { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 8px; margin-bottom: 24px; }
 .booking-form { display: flex; flex-direction: column; gap: 20px; padding: 28px; background: var(--panel); border: 1px solid var(--orange); border-radius: 8px; }
 .booking-form__field { display: flex; flex-direction: column; gap: 6px; }
 .booking-form__input { width: 100%; min-width: 0; padding: 12px; font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--muted); border-radius: 4px; }
@@ -618,4 +609,116 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .booking-form { padding: 20px; }
   .split > img { flex-basis: 100%; }
 }
-@media (prefers-reduced-motion: reduce) { .steam__trail { animation: none; opacity: 0.4; } }
+
+/* Декоративный снег на всех страницах сайта. Три плана создают глубину. */
+.snow {
+  position: fixed;
+  inset: 0;
+  z-index: 11;
+  overflow: hidden;
+  pointer-events: none;
+}
+.snow__flake {
+  position: absolute;
+  top: -20px;
+  left: var(--snow-x);
+  width: var(--snow-size);
+  height: var(--snow-size);
+  border-radius: 50%;
+  background-color: var(--snow-color);
+  opacity: 0;
+  animation: snowfall var(--snow-duration) linear var(--snow-delay) infinite;
+}
+.snow__flake_far { --snow-size: 3px; --snow-opacity: 0.25; filter: blur(0.6px); }
+.snow__flake_middle { --snow-size: 5px; --snow-opacity: 0.4; }
+.snow__flake_near { --snow-size: 8px; --snow-opacity: 0.55; filter: blur(0.4px); }
+.snow__flake:nth-child(1) { --snow-x: 3%; --snow-duration: 27s; --snow-delay: -4s; --snow-drift: -24px; }
+.snow__flake:nth-child(2) { --snow-x: 40%; --snow-duration: 21s; --snow-delay: -11s; --snow-drift: 32px; }
+.snow__flake:nth-child(3) { --snow-x: 77%; --snow-duration: 16s; --snow-delay: -2s; --snow-drift: -40px; }
+.snow__flake:nth-child(4) { --snow-x: 14%; --snow-duration: 30s; --snow-delay: -25s; --snow-drift: 20px; }
+.snow__flake:nth-child(5) { --snow-x: 51%; --snow-duration: 24s; --snow-delay: -8s; --snow-drift: 45px; }
+.snow__flake:nth-child(6) { --snow-x: 88%; --snow-duration: 14s; --snow-delay: -11s; --snow-drift: -24px; }
+.snow__flake:nth-child(7) { --snow-x: 25%; --snow-duration: 28s; --snow-delay: -18s; --snow-drift: 32px; }
+.snow__flake:nth-child(8) { --snow-x: 62%; --snow-duration: 22s; --snow-delay: -9s; --snow-drift: -40px; }
+.snow__flake:nth-child(9) { --snow-x: 99%; --snow-duration: 17s; --snow-delay: -9s; --snow-drift: 20px; }
+.snow__flake:nth-child(10) { --snow-x: 36%; --snow-duration: 31s; --snow-delay: -5s; --snow-drift: 45px; }
+.snow__flake:nth-child(11) { --snow-x: 73%; --snow-duration: 20s; --snow-delay: -14s; --snow-drift: -24px; }
+.snow__flake:nth-child(12) { --snow-x: 10%; --snow-duration: 15s; --snow-delay: -6s; --snow-drift: 32px; }
+.snow__flake:nth-child(13) { --snow-x: 47%; --snow-duration: 29s; --snow-delay: -1s; --snow-drift: -40px; }
+.snow__flake:nth-child(14) { --snow-x: 84%; --snow-duration: 23s; --snow-delay: -3s; --snow-drift: 20px; }
+.snow__flake:nth-child(15) { --snow-x: 21%; --snow-duration: 18s; --snow-delay: -12s; --snow-drift: 45px; }
+.snow__flake:nth-child(16) { --snow-x: 58%; --snow-duration: 27s; --snow-delay: -1s; --snow-drift: -24px; }
+.snow__flake:nth-child(17) { --snow-x: 95%; --snow-duration: 21s; --snow-delay: -11s; --snow-drift: 32px; }
+.snow__flake:nth-child(18) { --snow-x: 32%; --snow-duration: 16s; --snow-delay: -11s; --snow-drift: -40px; }
+.snow__flake:nth-child(19) { --snow-x: 69%; --snow-duration: 30s; --snow-delay: -10s; --snow-drift: 20px; }
+.snow__flake:nth-child(20) { --snow-x: 6%; --snow-duration: 24s; --snow-delay: -17s; --snow-drift: 45px; }
+.snow__flake:nth-child(21) { --snow-x: 43%; --snow-duration: 14s; --snow-delay: -4s; --snow-drift: -24px; }
+.snow__flake:nth-child(22) { --snow-x: 80%; --snow-duration: 28s; --snow-delay: -11s; --snow-drift: 32px; }
+.snow__flake:nth-child(23) { --snow-x: 17%; --snow-duration: 22s; --snow-delay: -4s; --snow-drift: -40px; }
+.snow__flake:nth-child(24) { --snow-x: 54%; --snow-duration: 17s; --snow-delay: -12s; --snow-drift: 20px; }
+.snow__flake:nth-child(25) { --snow-x: 91%; --snow-duration: 31s; --snow-delay: -17s; --snow-drift: 45px; }
+.snow__flake:nth-child(26) { --snow-x: 28%; --snow-duration: 20s; --snow-delay: -19s; --snow-drift: -24px; }
+.snow__flake:nth-child(27) { --snow-x: 65%; --snow-duration: 15s; --snow-delay: -6s; --snow-drift: 32px; }
+.snow__flake:nth-child(28) { --snow-x: 2%; --snow-duration: 29s; --snow-delay: -19s; --snow-drift: -40px; }
+.snow__flake:nth-child(29) { --snow-x: 39%; --snow-duration: 23s; --snow-delay: -16s; --snow-drift: 20px; }
+.snow__flake:nth-child(30) { --snow-x: 76%; --snow-duration: 18s; --snow-delay: -9s; --snow-drift: 45px; }
+@keyframes snowfall {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  8% { opacity: var(--snow-opacity); }
+  45% { transform: translate3d(var(--snow-drift), 48vh, 0); }
+  90% { opacity: var(--snow-opacity); }
+  100% { transform: translate3d(0, calc(100vh + 30px), 0); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .snow { display: none; }
+  .snow__flake { animation: none; }
+}
+
+/* Мягкое свечение и блики без изменения траектории падения. */
+.snow__flake {
+  box-shadow: 0 0 5px 1px var(--snow-glow);
+}
+.snow__flake::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse 12% 50% at center, var(--snow-glint), var(--transparent)),
+    radial-gradient(ellipse 50% 12% at center, var(--snow-glint), var(--transparent));
+  opacity: 0;
+  animation: snow-glimmer 5s ease-in-out var(--snow-delay) infinite;
+}
+.snow__flake_far { box-shadow: 0 0 3px var(--snow-glow); }
+.snow__flake_far::after { content: none; }
+.snow__flake_near { box-shadow: 0 0 8px 2px var(--snow-glow); }
+.snow__flake_near::after { inset: -6px; animation-duration: 4s; }
+@keyframes snow-glimmer {
+  0%, 35%, 75%, 100% { opacity: 0.05; transform: scale(0.7) rotate(0deg); }
+  52% { opacity: 0.8; transform: scale(1.15) rotate(25deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .snow__flake::after { animation: none; }
+}
+
+/* Плавное выделение карточек главной страницы. */
+.card {
+  position: relative;
+  transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease;
+}
+.card:focus-visible {
+  transform: scale(1.025);
+  box-shadow: 0 12px 28px var(--card-shadow);
+  z-index: 1;
+}
+@media (hover: hover) {
+  .card:hover {
+    transform: scale(1.025);
+    box-shadow: 0 12px 28px var(--card-shadow);
+    z-index: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+  .card:hover, .card:focus-visible { transform: none; }
+}
